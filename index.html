@@ -3,40 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CDC COIN - Destiny & Change</title>
+    <title>CDC Official Portal</title>
     <style>
-.rainbow-text { background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: rainbowFlow 3s linear infinite; font-weight: bold; } @keyframes rainbowFlow { to { background-position: 200% center; } }
-  @keyframes rainbowFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-  .rainbow-text { 
-    background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); 
-    background-size: 400% 400%; 
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent; 
-    animation: rainbowFlow 5s ease infinite; 
-    font-weight: bold; 
-  }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); color: #FFD700; } 100% { transform: scale(1); } }
-  .cdc-welcome { animation: fadeIn 3s ease-in, pulse 4s infinite; display: block; font-weight: bold; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes softFlash { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; color: #FFD700; text-shadow: 0 0 10px #FFD700; } }
-  .hayahay-effect { display: inline-block; animation: fadeIn 2.5s ease-out, softFlash 3s infinite; }
-        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; padding: 20px; }
-        .brand { color: #FFD700; font-size: 1.2rem; font-weight: bold; border: 2px solid #FFD700; padding: 10px; display: inline-block; border-radius: 10px; }
-        .slogan { background: linear-gradient(90deg, #b8860b, #ffd700); color: #000; padding: 15px; border-radius: 30px; margin: 20px 0; font-weight: bold; font-size: 1.2rem; }
-        .status-box { border: 1px dashed #FFD700; margin: 20px auto; padding: 10px; max-width: 300px; }
+        body { background-color: #0f172a; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); color: #FFD700; } }
+        @keyframes rainbow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes pop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+        
+        .welcome-msg { animation: fadeIn 2s, pulse 4s infinite; font-weight: bold; font-size: 1.1rem; margin-bottom: 20px; }
+        .rainbow-text { 
+            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #ff00ff); 
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            animation: rainbow 3s linear infinite; font-weight: bold; 
+        }
+        .pop-icon { display: inline-block; animation: pop 2s infinite; margin: 0 3px; }
+        .mission-box { font-size: 0.85rem; line-height: 1.8; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin: 10px 0; }
+        .legacy-section { font-size: 1.3rem; margin-top: 15px; border-top: 1px solid #334155; padding-top: 10px; }
+        .status-box { color: #94a3b8; font-size: 0.8rem; margin-top: 30px; }
     </style>
 </head>
 <body>
-    <div class="brand">CDC COIN OF DESTINY & CHANGE</div>
-    
-    <div class="slogan">
-        WELCOME to CDC COIN FAMILY where <span class="hayahay-effect">LIFE becomes Easy and HAYAHAY</span>! 🌴💰
+
+    <h2>CDC COIN OF DESTINY & CHANGE</h2>
+
+    <div class="welcome-msg">
+        WELCOME to CDC COIN FAMILY where LIFE becomes Easy and HAYAHAY! 🌴💰
+    </div>
+
+    <div class="mission-box">
+        <span class="rainbow-text">EMPOWERING COMMUNITIES</span> <span class="pop-icon">🤝</span> • 
+        <span class="rainbow-text">CREATING WEALTH</span> <span class="pop-icon">💎</span> <br>
+        WHILE <span class="rainbow-text">WATCHING</span> <span class="pop-icon">📺</span> and 
+        <span class="rainbow-text">SPENDING MONEY</span> <span class="pop-icon">💸</span> <br>
+        
+        TRAVEL <span class="pop-icon">✈️</span> • HOUSE <span class="pop-icon">🏠</span> • 
+        CAR <span class="pop-icon">🏎️</span> • MEDICAL <span class="pop-icon">🏥</span> <br>
+        
+        EDUCATION <span class="pop-icon">📚</span> • ELDERLY CARE <span class="pop-icon">👵</span> • 
+        LIVELIHOOD <span class="pop-icon">🌱</span>
+        
+        <div class="legacy-section">
+            <span class="rainbow-text">LEGACY</span> <span class="pop-icon" style="font-size: 2.5rem;">👑</span>
+        </div>
     </div>
 
     <div class="status-box">
-        <p>🚧 <strong>Phase 1: Portal Deployment</strong></p>
-        <p style="font-size: 1.2rem;">The 204-Country Charity List and Wallet Tracking are being integrated. Check back soon!</p>
+        <p>🚧 Phase 1: Portal Deployment</p>
+        <p>The 204-Country Charity List and Wallet Tracking are being integrated. Check back soon!</p>
     </div>
 
 </body>
