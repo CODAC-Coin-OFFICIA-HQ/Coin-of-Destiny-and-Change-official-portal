@@ -1,3 +1,5 @@
 SECRET_KEYS.txt
 secure_gen.py
 *.csv
+cdc_wallets.xlsx
+cdc_wallets.txt
