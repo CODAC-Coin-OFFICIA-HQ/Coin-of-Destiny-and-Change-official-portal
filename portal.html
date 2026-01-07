@@ -3,124 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CDC Portal | Elite Private Dashboard</title>
+    <title>CDC Portal | The Hayahay Engine</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --gold: #d4af37; --dark: #0a0a0a; --gray: #1a1a1a; --sidebar-w: 280px; --green: #00ff00; --red: #ff4444; }
-        body { background: #000; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; overflow-x: hidden; padding-bottom: 80px; }
-        .header { padding: 15px; border-bottom: 1px solid var(--gold); background: #050505; position: sticky; top: 0; z-index: 900; }
-        .clock-ticker { font-family: monospace; color: var(--gold); font-size: 14px; text-align: center; margin-top: 5px; }
-        .global-stats { display: flex; justify-content: space-between; font-size: 10px; color: var(--gold); margin-bottom: 5px; font-weight: bold; }
-        .menu-btn { position: absolute; right: 20px; top: 25px; color: var(--gold); font-size: 24px; cursor: pointer; }
-        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
-        .wallet-card { background: var(--gray); padding: 12px; border-radius: 8px; border-left: 3px solid var(--gold); }
-        .wallet-val { font-size: 15px; font-weight: bold; margin-top: 4px; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 2000; display: none; overflow-y: auto; padding-bottom: 50px; }
-        .entity-card { background: #111; border: 1px solid #333; padding: 15px; margin: 10px 20px; border-radius: 8px; cursor: pointer; }
-        .entity-card h4 { margin: 0; color: var(--gold); font-size: 14px; }
-        .entity-card p { margin: 5px 0 0; font-size: 10px; color: #888; }
-        .input-group { padding: 20px; }
-        .input-group label { display: block; font-size: 10px; color: var(--gold); margin-bottom: 5px; text-transform: uppercase; }
-        .input-group input { width: 95%; background: #000; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 5px; margin-bottom: 5px; outline: none; }
-        .v-status { display: block; font-size: 9px; margin-bottom: 15px; font-weight: bold; }
-        .side-nav { position: fixed; top: 0; right: -280px; width: var(--sidebar-w); height: 100%; background: var(--dark); border-left: 1px solid var(--gold); transition: 0.4s; z-index: 1000; padding-top: 60px; }
-        .side-nav.open { right: 0; }
-        .nav-link { display: block; padding: 15px 20px; color: #ccc; text-decoration: none; border-bottom: 1px solid #111; font-size: 13px; cursor: pointer; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; border-top: 1px solid var(--gold); display: flex; height: 65px; z-index: 998; }
-        .bn-item { flex: 1; text-align: center; color: #666; font-size: 9px; padding-top: 12px; text-decoration: none; }
-        .bn-item.active { color: var(--gold); }
+        :root { --gold: #d4af37; --dark: #0a0b0d; --blue: #0052ff; --green: #00ff00; }
+        body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 80px; }
+        
+        /* Marquee for Winners */
+        .marquee-bg { background: linear-gradient(90deg, #1e2329, var(--blue)); padding: 8px; overflow: hidden; white-space: nowrap; }
+        .marquee-text { display: inline-block; animation: scroll 20s linear infinite; color: var(--gold); font-weight: bold; font-size: 12px; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        .header { padding: 20px; text-align: center; border-bottom: 1px solid #222; }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+        .stat-card { background: #1a1c20; padding: 15px; border-radius: 12px; border: 1px solid #2b2f36; }
+        .stat-label { font-size: 10px; color: #848e9c; text-transform: uppercase; }
+        .stat-val { font-size: 18px; font-weight: bold; color: var(--gold); margin-top: 5px; }
+
+        /* Task Gateway */
+        .task-box { background: #1a1c20; margin: 0 20px; padding: 20px; border-radius: 16px; border: 1px solid var(--blue); }
+        .video-placeholder { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; }
+        
+        .btn-task { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-locked { background: #2b2f36; color: #848e9c; cursor: not-allowed; }
+        .btn-active { background: var(--blue); color: white; }
+        .btn-claim { background: var(--gold); color: #000; font-size: 16px; margin-top: 10px; }
     </style>
 </head>
 <body>
+
+    <div class="marquee-bg">
+        <div class="marquee-text">🏆 TOP 888 WINNER: ID #10294 - 38,888 USDT | 🏆 TOP 889 WINNER: ID #09928 - 28,888 USDT | 🏆 TOP 890 WINNER: ID #11022 - 18,888 USDT</div>
+    </div>
+
     <div class="header">
-        <div class="global-stats"><span>🌐 Lang: 192</span><span>🌍 Country: 204</span></div>
-        <div style="text-align:center; font-weight:bold; color:var(--gold); font-size:18px;">CDC PORTAL</div>
-        <div id="realtime-clock" class="clock-ticker">--:--:-- | 2026</div>
-        <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <h2 style="margin:0; color:var(--gold);">CDC HAYAHAY ENGINE</h2>
+        <p style="font-size:11px; color:#848e9c;">Project 2: Progressive Reward (Depth: 25)</p>
     </div>
 
-    <div class="grid-container">
-        <div class="wallet-card">
-            <div style="font-size:9px; color:var(--gold);">RESERVE POINTS</div>
-            <div class="wallet-val">1,500,000 PTS</div>
+    <div class="stat-grid">
+        <div class="stat-card">
+            <div class="stat-label">Total Grand Bonus</div>
+            <div class="stat-val">28,888 USDT</div>
         </div>
-        <div class="wallet-card" style="border-left-color: var(--green);">
-            <div style="font-size:9px; color:var(--gold);">PROGRESS</div>
-            <div class="wallet-val" style="font-size:12px;">P1: LEVEL 7 / 28</div>
-        </div>
-    </div>
-
-    <div style="padding:15px; text-align:center;">
-        <button onclick="openBusinessModal()" style="background:var(--gold); color:#000; border:none; padding:15px 30px; border-radius:5px; font-weight:bold; width:100%;">💼 SETUP BUSINESS ENTITY</button>
-    </div>
-
-    <div id="businessModal" class="modal-overlay">
-        <div style="text-align:center; padding: 30px 20px 10px;">
-            <h3 style="color:var(--gold); margin:0;">IDENTITY GATE</h3>
-            <p style="font-size:10px; color:#888;">Nominees must be existing CDC Portal Members.</p>
-        </div>
-        <div id="entityList">
-            <div onclick="showAncestry('Personal')" class="entity-card"><h4>Personal Account</h4><p>Standard individual registration.</p></div>
-            <div onclick="showAncestry('Family Clan')" class="entity-card"><h4>Family Clan</h4><p>Lineage-based Multi-Sig account.</p></div>
-            <div onclick="showAncestry('Merchant')" class="entity-card"><h4>Merchant</h4><p>Retail & Product Vendor account.</p></div>
-            <div onclick="showAncestry('Institution')" class="entity-card"><h4>Institution / Coop</h4><p>Official organization registration.</p></div>
-        </div>
-        <div id="ancestrySection" class="input-group" style="display:none;">
-            <h4 id="selectedType" style="color:var(--gold); text-align:center; margin-bottom:20px;"></h4>
-            <label>Father's Full Name (3rd Gen Trace)</label>
-            <input type="text" placeholder="Entry Required">
-            <label>Mother's Full Name (3rd Gen Trace)</label>
-            <input type="text" placeholder="Entry Required">
-            <div id="nomineeFields" style="display:none; margin-top:20px; border-top:1px solid #222; padding-top:20px;">
-                <label>Nominee 1: Head / Captain</label>
-                <input type="text" placeholder="Enter CDC ID" onkeyup="checkMember(this)">
-                <span class="v-status"></span>
-                <label>Nominee 2: Treasurer</label>
-                <input type="text" placeholder="Enter CDC ID" onkeyup="checkMember(this)">
-                <span class="v-status"></span>
-                <label>Nominee 3: Secretary</label>
-                <input type="text" placeholder="Enter CDC ID" onkeyup="checkMember(this)">
-                <span class="v-status"></span>
-            </div>
-            <button onclick="saveAndPush()" id="btnActivate" style="width:100%; background:var(--gold); color:#000; border:none; padding:15px; font-weight:bold; border-radius:5px; margin-top:10px;">SUBMIT APPLICATION</button>
-            <button onclick="closeBusinessModal()" style="width:100%; background:transparent; border:none; color:#888; margin-top:15px; font-size:12px;">GO BACK</button>
+        <div class="stat-card">
+            <div class="stat-label">Release Limit</div>
+            <div class="stat-val" style="color:var(--green);">8.00% Daily</div>
         </div>
     </div>
 
-    <nav class="side-nav" id="sidebar">
-        <div style="padding: 20px; color: var(--gold); border-bottom: 1px solid #333; font-weight: bold;">NAVIGATOR</div>
-        <a onclick="openBusinessModal()" class="nav-link">💼 BUSINESS ENTITY</a>
-        <a class="nav-link">💰 WALLET</a>
-        <a class="nav-link">🌳 GENEALOGY</a>
-    </nav>
-
-    <div class="bottom-nav">
-        <a href="#" class="bn-item active"><i class="fas fa-home"></i><br>HOME</a>
-        <a href="#" class="bn-item"><i class="fas fa-briefcase"></i><br>BUSINESS</a>
-        <a href="#" class="bn-item"><i class="fas fa-wallet"></i><br>WALLET</a>
-        <a href="#" class="bn-item"><i class="fas fa-tree"></i><br>GENEAL</a>
+    <div class="task-box">
+        <h3 style="margin-top:0; font-size:16px;">Social Task Gateway</h3>
+        <div class="video-placeholder" id="videoArea">
+            <i class="fab fa-youtube fa-3x" style="color:red;"></i>
+        </div>
+        
+        <button id="watchBtn" class="btn-task btn-active" onclick="startWatch()">1. WATCH VIDEO (60s)</button>
+        <button id="likeBtn" class="btn-task btn-locked" onclick="doSocial('like')">2. LIKE & COMMENT</button>
+        <button id="shareBtn" class="btn-task btn-locked" onclick="doSocial('share')">3. SHARE CHANNEL</button>
+        
+        <hr style="border:0; border-top:1px solid #333; margin:15px 0;">
+        
+        <button id="claimBtn" class="btn-task btn-locked btn-claim" onclick="finalRelease()" disabled>RELEASE 8% CDC</button>
+        <p id="statusMsg" style="font-size:10px; text-align:center; color:#848e9c;">Finish tasks to unlock release button.</p>
     </div>
 
     <script>
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('realtime-clock').innerText = now.toLocaleTimeString() + " | " + now.toLocaleDateString('en-GB');
+        let watched = false, liked = false, shared = false;
+
+        function startWatch() {
+            alert("Opening YouTube... Stay for 60 seconds to verify.");
+            window.open('https://youtube.com', '_blank');
+            setTimeout(() => {
+                watched = true;
+                document.getElementById('watchBtn').innerText = "WATCHED ✅";
+                document.getElementById('watchBtn').className = "btn-task btn-locked";
+                document.getElementById('likeBtn').className = "btn-task btn-active";
+                checkReady();
+            }, 5000); // 5s for demo, you can change to 60000
         }
-        setInterval(updateClock, 1000);
-        function toggleMenu() { document.getElementById('sidebar').classList.toggle('open'); }
-        function openBusinessModal() { document.getElementById('businessModal').style.display = 'block'; if(document.getElementById('sidebar').classList.contains('open')) toggleMenu(); }
-        function closeBusinessModal() { document.getElementById('businessModal').style.display = 'none'; document.getElementById('entityList').style.display='block'; document.getElementById('ancestrySection').style.display='none'; }
-        function showAncestry(type) { document.getElementById('entityList').style.display = 'none'; document.getElementById('ancestrySection').style.display = 'block'; document.getElementById('selectedType').innerText = type.toUpperCase(); if(type !== 'Personal') document.getElementById('nomineeFields').style.display = 'block'; else document.getElementById('nomineeFields').style.display = 'none'; }
-        
-        const validDB = ["CDC-001", "CDC-002", "CDC-007"]; 
-        function checkMember(el) {
-            let id = el.value.toUpperCase();
-            let status = el.nextElementSibling;
-            if(id === "") { status.innerText = ""; return; }
-            if(validDB.includes(id)) { status.innerText = "✅ MEMBER VERIFIED"; status.style.color = "var(--green)"; }
-            else { status.innerHTML = "❌ NOT A MEMBER. <span style='color:var(--gold); cursor:pointer;' onclick='alert(\"Invite Link Sent!\")'>Click to Invite.</span>"; status.style.color = "var(--red)"; }
+
+        function doSocial(type) {
+            if(!watched) return;
+            if(type === 'like') {
+                liked = true;
+                document.getElementById('likeBtn').innerText = "LIKED ✅";
+                document.getElementById('shareBtn').className = "btn-task btn-active";
+            } else {
+                shared = true;
+                document.getElementById('shareBtn').innerText = "SHARED ✅";
+                window.open('https://facebook.com/sharer/sharer.php', '_blank');
+            }
+            checkReady();
         }
-        function saveAndPush() { alert("Application Received! Pending Multi-Sig Approval."); closeBusinessModal(); }
+
+        function checkReady() {
+            if(watched && liked && shared) {
+                const btn = document.getElementById('claimBtn');
+                btn.className = "btn-task btn-active btn-claim";
+                btn.disabled = false;
+                document.getElementById('statusMsg').innerText = "Gateway Open! You can now release your 8%.";
+                document.getElementById('statusMsg').style.color = "var(--green)";
+            }
+        }
+
+        function finalRelease() {
+            alert("8% Manual Release Successful! 2,311.04 USDT equivalent in CDC transferred to Withdrawable Wallet.");
+            location.reload();
+        }
     </script>
 </body>
 </html>
