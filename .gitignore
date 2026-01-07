@@ -3,3 +3,4 @@ secure_gen.py
 *.csv
 cdc_wallets.xlsx
 cdc_wallets.txt
+security_key.py
