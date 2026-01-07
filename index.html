@@ -1,19 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CDC Portal | Maintenance</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDC Sovereign Portal</title>
     <style>
-        body { background: #000; color: #d4af37; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
-        .box { border: 1px solid #d4af37; padding: 40px; border-radius: 10px; border-style: double; }
-        .loader { color: #888; font-size: 12px; margin-top: 20px; }
+        body { font-family: sans-serif; background: #0a0a0a; color: white; margin: 0; }
+        nav { background: #1a1a1a; padding: 1rem; display: flex; gap: 20px; border-bottom: 2px solid #288828; }
+        nav a { color: #00ff00; text-decoration: none; font-weight: bold; cursor: pointer; }
+        .container { padding: 20px; }
+        .card { background: #222; padding: 20px; border-radius: 10px; border-left: 5px solid #288828; margin-bottom: 20px; }
+        .hidden { display: none; }
+        .stat { color: #00ff00; font-size: 1.2rem; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h1 style="letter-spacing: 2px;">CDC COIN PORTAL</h1>
-        <p>SYSTEM UPGRADE IN PROGRESS</p>
-        <p style="color:#888; font-size: 14px;">Deploying 2026 Core Engine (Depth 28/25 Logic)</p>
-        <div class="loader">Verifying Succession...</div>
+
+<nav>
+    <a onclick="showPage('home')">HOME</a>
+    <a onclick="showPage('sovereign')">SOVEREIGN L8</a>
+    <a onclick="showPage('humanitarian')">HUMANITARIAN</a>
+</nav>
+
+<div id="home" class="container">
+    <h1>Welcome to CDC Portal</h1>
+    <div class="card">
+        <h3>Project Status: Project 1 (Binary)</h3>
+        <p>Active Countries: <span class="stat">204</span></p>
+        <p>System Law: <span class="stat">28.88 / 71.12 Split</span></p>
     </div>
+</div>
+
+<div id="sovereign" class="container hidden">
+    <h1>Sovereign L8 Dashboard</h1>
+    <div class="card">
+        <h3>Country Reserve</h3>
+        <p>Total Fund: <span class="stat">1,000,000 USDT</span></p>
+        <p>Visibility: <span class="stat">Level 8 (Anchor)</span></p>
+    </div>
+</div>
+
+<div id="humanitarian" class="container hidden">
+    <h1>Humanitarian Logic</h1>
+    <div class="card">
+        <h3>Disaster Response Math</h3>
+        <p>Withdrawal Rule: <span class="stat">Impact % = Withdrawal %</span></p>
+        <p>Global Vote Trigger: <span class="stat">8% Population Impact</span></p>
+    </div>
+</div>
+
+<script>
+    function showPage(pageId) {
+        document.getElementById('home').classList.add('hidden');
+        document.getElementById('sovereign').classList.add('hidden');
+        document.getElementById('humanitarian').classList.add('hidden');
+        document.getElementById(pageId).classList.remove('hidden');
+    }
+</script>
+
 </body>
 </html>
