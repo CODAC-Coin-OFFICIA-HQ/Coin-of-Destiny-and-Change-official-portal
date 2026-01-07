@@ -3,113 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CDC Portal | The Hayahay Engine</title>
+    <title>CDC Genealogy | 25-28 Infinity Tree</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --gold: #d4af37; --dark: #0a0b0d; --blue: #0052ff; --green: #00ff00; }
-        body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 80px; }
+        body { background: var(--dark); color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding-bottom: 80px; text-align: center; }
         
-        /* Marquee for Winners */
-        .marquee-bg { background: linear-gradient(90deg, #1e2329, var(--blue)); padding: 8px; overflow: hidden; white-space: nowrap; }
-        .marquee-text { display: inline-block; animation: scroll 20s linear infinite; color: var(--gold); font-weight: bold; font-size: 12px; }
-        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .tree-header { padding: 20px; border-bottom: 1px solid #222; background: #050505; sticky; top: 0; z-index: 100; }
+        .view-toggle { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
+        .toggle-btn { background: #1a1a1a; color: #888; border: 1px solid #333; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 11px; }
+        .toggle-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
 
-        .header { padding: 20px; text-align: center; border-bottom: 1px solid #222; }
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .stat-card { background: #1a1c20; padding: 15px; border-radius: 12px; border: 1px solid #2b2f36; }
-        .stat-label { font-size: 10px; color: #848e9c; text-transform: uppercase; }
-        .stat-val { font-size: 18px; font-weight: bold; color: var(--gold); margin-top: 5px; }
-
-        /* Task Gateway */
-        .task-box { background: #1a1c20; margin: 0 20px; padding: 20px; border-radius: 16px; border: 1px solid var(--blue); }
-        .video-placeholder { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 8px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; }
+        /* Tree Visualization */
+        .tree-container { padding: 20px; overflow-x: auto; white-space: nowrap; }
+        .node { display: inline-block; margin: 0 5px; position: relative; }
+        .user-icon { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold); background: #111; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+        .user-id { font-size: 9px; color: #ccc; }
         
-        .btn-task { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-locked { background: #2b2f36; color: #848e9c; cursor: not-allowed; }
-        .btn-active { background: var(--blue); color: white; }
-        .btn-claim { background: var(--gold); color: #000; font-size: 16px; margin-top: 10px; }
+        /* Stats Bar */
+        .tree-stats { background: #111; margin: 15px; padding: 15px; border-radius: 10px; border-left: 4px solid var(--gold); text-align: left; }
+        .stat-line { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; }
+        .waiting-area { background: #1a1c20; border: 1px dashed var(--gold); padding: 10px; margin-top: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="marquee-bg">
-        <div class="marquee-text">🏆 TOP 888 WINNER: ID #10294 - 38,888 USDT | 🏆 TOP 889 WINNER: ID #09928 - 28,888 USDT | 🏆 TOP 890 WINNER: ID #11022 - 18,888 USDT</div>
-    </div>
-
-    <div class="header">
-        <h2 style="margin:0; color:var(--gold);">CDC HAYAHAY ENGINE</h2>
-        <p style="font-size:11px; color:#848e9c;">Project 2: Progressive Reward (Depth: 25)</p>
-    </div>
-
-    <div class="stat-grid">
-        <div class="stat-card">
-            <div class="stat-label">Total Grand Bonus</div>
-            <div class="stat-val">28,888 USDT</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-label">Release Limit</div>
-            <div class="stat-val" style="color:var(--green);">8.00% Daily</div>
+    <div class="tree-header">
+        <h2 style="margin:0; color:var(--gold);">GENEAL TREE VIEW</h2>
+        <div class="view-toggle">
+            <button class="toggle-btn active" onclick="switchView('feeding')">FEEDING (L28+)</button>
+            <button class="toggle-btn" onclick="switchView('p2')">PROJECT 2 (L25)</button>
         </div>
     </div>
 
-    <div class="task-box">
-        <h3 style="margin-top:0; font-size:16px;">Social Task Gateway</h3>
-        <div class="video-placeholder" id="videoArea">
-            <i class="fab fa-youtube fa-3x" style="color:red;"></i>
+    <div class="tree-stats">
+        <div class="stat-line"><span>Current Depth:</span> <b id="depthVal">Level 28</b></div>
+        <div class="stat-line"><span>Total Members:</span> <b id="totalVal">268,435,455</b></div>
+        <div class="waiting-area">
+            <div style="font-size:10px; color:var(--gold); font-weight:bold; margin-bottom:5px;">FEEDING WAITING AREA (AUTO-LINEUP)</div>
+            <div style="font-size:12px; color:var(--green);"><i class="fas fa-spinner fa-spin"></i> 1,402 New Subscribers Queuing...</div>
         </div>
-        
-        <button id="watchBtn" class="btn-task btn-active" onclick="startWatch()">1. WATCH VIDEO (60s)</button>
-        <button id="likeBtn" class="btn-task btn-locked" onclick="doSocial('like')">2. LIKE & COMMENT</button>
-        <button id="shareBtn" class="btn-task btn-locked" onclick="doSocial('share')">3. SHARE CHANNEL</button>
-        
-        <hr style="border:0; border-top:1px solid #333; margin:15px 0;">
-        
-        <button id="claimBtn" class="btn-task btn-locked btn-claim" onclick="finalRelease()" disabled>RELEASE 8% CDC</button>
-        <p id="statusMsg" style="font-size:10px; text-align:center; color:#848e9c;">Finish tasks to unlock release button.</p>
     </div>
+
+    <div class="tree-container">
+        <div class="node">
+            <div class="user-icon"><i class="fas fa-user-tie" style="color:var(--gold);"></i></div>
+            <div class="user-id">CDC-FOUNDER</div>
+            <div style="margin-top:10px;">
+                <div class="node">
+                    <div class="user-icon"><i class="fas fa-user" style="color:var(--blue);"></i></div>
+                    <div class="user-id">CDC-AMB-001</div>
+                </div>
+                <div class="node">
+                    <div class="user-icon"><i class="fas fa-user" style="color:var(--blue);"></i></div>
+                    <div class="user-id">CDC-AMB-002</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p style="font-size:10px; color:#555; padding: 20px;">
+        *Feeding area expands automatically past Level 28 to support Main Tree flow.
+    </p>
 
     <script>
-        let watched = false, liked = false, shared = false;
-
-        function startWatch() {
-            alert("Opening YouTube... Stay for 60 seconds to verify.");
-            window.open('https://youtube.com', '_blank');
-            setTimeout(() => {
-                watched = true;
-                document.getElementById('watchBtn').innerText = "WATCHED ✅";
-                document.getElementById('watchBtn').className = "btn-task btn-locked";
-                document.getElementById('likeBtn').className = "btn-task btn-active";
-                checkReady();
-            }, 5000); // 5s for demo, you can change to 60000
-        }
-
-        function doSocial(type) {
-            if(!watched) return;
-            if(type === 'like') {
-                liked = true;
-                document.getElementById('likeBtn').innerText = "LIKED ✅";
-                document.getElementById('shareBtn').className = "btn-task btn-active";
+        function switchView(view) {
+            const btns = document.querySelectorAll('.toggle-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            
+            if(view === 'feeding') {
+                btns[0].classList.add('active');
+                document.getElementById('depthVal').innerText = "Level 28 (Expanding)";
+                document.getElementById('totalVal').innerText = "268,435,455";
             } else {
-                shared = true;
-                document.getElementById('shareBtn').innerText = "SHARED ✅";
-                window.open('https://facebook.com/sharer/sharer.php', '_blank');
+                btns[1].classList.add('active');
+                document.getElementById('depthVal').innerText = "Level 25 (Fixed)";
+                document.getElementById('totalVal').innerText = "33,554,431";
             }
-            checkReady();
-        }
-
-        function checkReady() {
-            if(watched && liked && shared) {
-                const btn = document.getElementById('claimBtn');
-                btn.className = "btn-task btn-active btn-claim";
-                btn.disabled = false;
-                document.getElementById('statusMsg').innerText = "Gateway Open! You can now release your 8%.";
-                document.getElementById('statusMsg').style.color = "var(--green)";
-            }
-        }
-
-        function finalRelease() {
-            alert("8% Manual Release Successful! 2,311.04 USDT equivalent in CDC transferred to Withdrawable Wallet.");
-            location.reload();
         }
     </script>
 </body>
