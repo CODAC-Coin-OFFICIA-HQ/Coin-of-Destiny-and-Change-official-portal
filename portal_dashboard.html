@@ -1,52 +1,74 @@
 <!DOCTYPE html>
-<html>
-<head><!-- ===== FOUNDER-ONLY MASTER LOGIN — DEV BRANCH ===== -->
-<div class="panel master-login-dev" style="background:#111; border:1px solid #ffd700; border-radius:8px; padding:15px; margin:15px 20px; text-align:center;">
-  <h3 style="color:#ffd700; margin:0 0 5px;">CDC GLOBAL</h3>
-  <p style="color:#eaeaea; margin:0 0 10px;">LOGIN AS MASTER (Founder Only)</p>
-  <button onclick="masterLogin()" 
-          style="background:linear-gradient(90deg,#ffd700,#ffb700); color:#000; border:none; border-radius:6px; padding:10px 20px; font-weight:bold; cursor:pointer;">
-    MASTER LOGIN
-  </button>
-</div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CDC MASTER PORTAL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { background: #050505; color: #d4af37; font-family: Arial, sans-serif; }
+    .panel { background:#111; border:1px solid #ffd700; border-radius:8px; padding:15px; margin:15px 20px; text-align:center; }
+    .panel h3 { color:#ffd700; margin:0 0 5px; }
+    .panel p { color:#eaeaea; margin:0 0 10px; }
+    .panel button { background:linear-gradient(90deg,#ffd700,#ffb700); color:#000; border:none; border-radius:6px; padding:10px 20px; font-weight:bold; cursor:pointer; }
 
-<script>
-function masterLogin() {
-    // Prompt founder key
-    let key = prompt("Enter Founder Key:");
-    if(key === "CDCFOUNDER2026") {  // ✅ Your founder key
-        alert("Welcome Master! Access Granted.");
-        // TODO: Add real master login logic here later
-    } else {
-        alert("Access Denied! Wrong Key.");
-    }
-}
-</script>
-    <title>CDC MASTER PORTAL</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body { background: #050505; color: #d4af37; font-family: 'Courier New', monospace; text-align: center; margin: 0; }
-        .header { background: #000; padding: 15px; border-bottom: 2px solid #d4af37; display: flex; justify-content: space-between; align-items: center; }
-        .master-badge { color: #0f0; font-size: 0.7em; border: 1px solid #0f0; padding: 2px 8px; border-radius: 4px; }
-        
-        /* ADMIN PANEL STYLE */
-        .admin-section { background: #111; margin: 20px; padding: 15px; border-radius: 10px; border: 1px solid #333; text-align: left; }
-        .account-row { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #222; font-size: 0.8em; }
-        .locked-id { color: #888; font-style: italic; }
-        .reset-btn { background: #d4af37; color: #000; border: none; padding: 5px 10px; cursor: pointer; font-weight: bold; border-radius: 3px; }
-        
-        #loginArea { padding-top: 150px; }
-        input { background: #000; border: 1px solid #d4af37; color: #fff; padding: 15px; width: 250px; text-align: center; }
-        button#loginBtn { background: #d4af37; color: #000; border: none; padding: 15px 40px; margin-top: 20px; cursor: pointer; font-weight: bold; }
-    </style>
+    /* MASTER VIEW / ADMIN PANEL */
+    .header { background: #000; padding: 15px; display:flex; justify-content:space-between; align-items:center; }
+    .master-badge { color: #0f0; font-size: 0.8em; font-weight:bold; }
+    .admin-section { background: #111; margin: 10px 20px; padding: 10px; border-radius:6px; }
+    .account-row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .locked-id { color: #888; font-style: italic; }
+    .reset-btn { background: #d4af37; color: #000; padding:4px 8px; border:none; border-radius:4px; cursor:pointer; }
+    #loginArea { padding-top: 100px; text-align:center; }
+    input { background:#000; border:1px solid #ffd700; color:#fff; padding:8px; border-radius:4px; width:200px; margin-right:5px; }
+    button#loginBtn { background:#d4af37; color:#000; padding:8px 15px; border:none; border-radius:4px; cursor:pointer; }
+  </style>
 </head>
+
 <body>
 
-    <div id="loginArea">
-        <h1 style="letter-spacing: 5px;">CDC GLOBAL</h1>
-        <input type="text" id="masterID" placeholder="ENTER AIOIN ID"><br>
-        <button id="loginBtn" onclick="verifyAccess()">LOGIN AS MASTER</button>
+  <!-- ===== FOUNDER-ONLY MASTER LOGIN ===== -->
+  <div class="panel master-login-dev" id="loginArea">
+    <h3>CDC GLOBAL MASTER PORTAL</h3>
+    <p>LOGIN AS MASTER (Founder Only)</p>
+    <input type="text" id="masterID" placeholder="Enter Founder Key">
+    <button id="loginBtn" onclick="masterLogin()">MASTER LOGIN</button>
+  </div>
+
+  <!-- ===== MASTER VIEW DASHBOARD ===== -->
+  <div id="masterView" style="display:none;">
+    <div class="header">
+      <div>
+        <span style="font-weight:bold;">AF000A2</span>
+        <span class="master-badge">MASTER</span>
+      </div>
+      <button onclick="location.reload()" style="background:#d4af37; color:#000; border:none; border-radius:4px; padding:4px 8px; cursor:pointer;">
+        LOGOUT
+      </button>
     </div>
+
+    <h2 style="margin-top:20px;">FOUNDATION GOVERNANCE</h2>
+    <p style="font-size:0.6em; color:#ff0000;">Admin Overview</p>
+
+    <div class="admin-section">
+      <div id="foundationNodes"></div>
+    </div>
+  </div>
+
+  <script>
+    function masterLogin() {
+      const keyInput = document.getElementById('masterID').value;
+      if(keyInput === "CDCFOUNDER2026") {
+        alert("Welcome Master! Access Granted.");
+        document.getElementById('loginArea').style.display = 'none';
+        document.getElementById('masterView').style.display = 'block';
+      } else {
+        alert("Access Denied! Wrong Key.");
+      }
+    }
+  </script>
+
+</body>
+</html>
 
     <div id="masterView" style="display:none;">
         <div class="header">
