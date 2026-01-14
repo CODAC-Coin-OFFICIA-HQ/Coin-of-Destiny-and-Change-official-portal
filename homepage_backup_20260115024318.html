@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDC Official Portal</title>
+<style>
+:root { --gold: #ffd700; --dark: #0a0a0a; --gray: #1a1a1a; }
+
+body {
+    background: var(--dark);
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #FFD700;
+    font-weight: bold;
+    display: block;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+h2, h3, h4 {
+    color: #FFD700;
+}
+
+.section-box {
+    background: rgba(255,255,255,0.05);
+    border: 2px solid #FFD700;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.submenu {
+    margin-left: 15px;
+    display: none;
+}
+
+.submenu.active {
+    display: block;
+}
+
+a:hover {
+    color: #fff200;
+}
+</style>
+</head>
+<body>
+
+<h2>CDC COIN OF DESTINY & CHANGE</h2>
+<p>Empowering Communities • Creating Wealth • Watching • Spending Moment and Money</p>
+
+<!-- TOP INFO -->
+<div class="section-box">
+💎 Global Reserve: <b>0</b> | 🏦 Treasury: <b>0</b> | 🪙 CDC Price: <b>$1.02</b><br>
+Founder: <b>Uday</b> | Succession: <b>Verified</b>
+</div>
+
+<!-- MENU -->
+<div class="section-box">
+<h3>CDC MENU</h3>
+
+<a href="homepage.html">🏠 HOME</a>
+<a href="business.html">💼 BUSINESS</a>
+<a href="wallet.html">💰 WALLET</a>
+
+<!-- INCENTIVES -->
+<a onclick="toggleSubmenu('incentivesSub')">🏆 INCENTIVES</a>
+<div class="submenu" id="incentivesSub">
+    <h4>🎁 Incentives</h4>
+    <a href="house.html">🏠 House</a>
+    <a href="health.html">🏥 Health</a>
+    <a href="car.html">🚗 Car</a>
+    <a href="travel.html">✈️ Travel</a>
+    <a href="shopping.html">🛍️ Shopping</a>
+    <a href="scholar.html">🎓 Scholar</a>
+    <a href="agedcare.html">👵 AgedCare</a>
+    <a href="bonus.html">💰 Bonus</a>
+</div>
+
+<!-- REWARDS -->
+<a onclick="toggleSubmenu('rewardsSub')">🏆 REWARDS</a>
+<div class="submenu" id="rewardsSub">
+    <h4>Rewards</h4>
+    <a href="cycle1_rewards.html">Cycle 1 → 18,888 → 178,888 USDT</a>
+    <a href="cycle2_rewards.html">Cycle 2 → Reward</a>
+</div>
+
+<a href="genealogy.html">🌳 GENEALOGY</a>
+<a href="action_center.html">⚡ ACTION CENTER</a>
+<a href="more.html">➕ MORE</a>
+</div>
+
+<!-- ACCOUNT / LEADERSHIP LEVEL -->
+<div class="section-box">
+<h3>👤 Account Overview</h3>
+<p><b>Username:</b> default</p>
+<p><b>Account Status:</b> default</p>
+<p><b>Leadership / Level Status:</b> default</p>
+<p><b>CDC Points:</b> 0</p>
+<p><b>Total CDC Earned:</b> 0</p>
+<p><b>CDC Coin:</b> 0</p>
+<p><b>CDC Coin Locked:</b> 0</p>
+<p><b>Portal USDT:</b> 0</p>
+</div>
+
+<!-- WALLETS -->
+<div class="section-box">
+<h3>💰 Wallets</h3>
+<p>CDC-Coin TREASURY</p>
+<p>CDC-Coin RESERVE</p>
+<p>CDC-Coin PORTAL</p>
+<p>USDT</p>
+<p>CDC-Coin Forfeited</p>
+<p>CDC-Coin Merchant</p>
+<p>CDC-Coin Backup</p>
+<p>CDC-Coin Miscellaneous</p>
+<p>CDC-Coin Locked</p>
+<p>CDC-Coin Incentive</p>
+<p>CDC-Coin Reward</p>
+<p>CDC-Coin INFRA</p>
+<p>CDC-Coin Foundation</p>
+<p>CDC-Coin 204 Countries Charity</p>
+<p>CDC-Coin Innovation</p>
+<p>CDC-Coin Blockchain Fund</p>
+<p>CDC-Coin System Maintenance</p>
+</div>
+
+<!-- LANGUAGE -->
+<div class="section-box">
+<h3>🌐 Language</h3>
+<select>
+    <option>Select Language</option>
+    <option>English</option>
+    <option>Filipino</option>
+    <option>Chinese</option>
+    <option>Arabic</option>
+    <option>Spanish</option>
+    <option>French</option>
+    <option>German</option>
+    <option>Japanese</option>
+    <option>Hindi</option>
+    <option>Portuguese</option>
+    <option>Russian</option>
+</select>
+</div>
+
+<!-- COUNTRY -->
+<div class="section-box">
+<h3>🌍 Country & Currency</h3>
+<select>
+    <option>Select Country</option>
+    <option>CDC-Coin</option>
+    <option>USDT</option>
+    <option>Philippines – PHP</option>
+    <option>United States – USD</option>
+    <option>United Kingdom – GBP</option>
+    <option>Japan – JPY</option>
+    <option>Germany – EUR</option>
+    <option>France – EUR</option>
+    <option>Nigeria – NGN</option>
+    <option>Brazil – BRL</option>
+</select>
+</div>
+
+<!-- LIVE FEED -->
+<div class="section-box">
+<h3>● LIVE BLOCKCHAIN FEED</h3>
+<p>Coming Soon…</p>
+</div>
+
+<p>CDC Coin of Destiny & Change © 2026</p>
+
+<script>
+function toggleSubmenu(id) {
+    const submenu = document.getElementById(id);
+    submenu.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>

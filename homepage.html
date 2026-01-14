@@ -1,71 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CDC Official Portal</title>
-    <style>
-        body { background-color: #0f172a; color: white; font-family: sans-serif; text-align: center; padding: 20px; line-height: 1.6; overflow-x: hidden; }
-        
-        /* Animations */
-        @keyframes rainbowFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes goldFlash { 0%, 100% { opacity: 1; text-shadow: 0 0 5px #FFD700; } 50% { opacity: 0.6; text-shadow: 0 0 20px #FFD700; color: #FFD700; } }
-        @keyframes pop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4); } }
-        @keyframes boxGlow { 0%, 100% { border-color: #FFD700; box-shadow: 0 0 10px #FFD700; } 50% { border-color: #fff; box-shadow: 0 0 30px #FFD700; } }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDC Portal - Level 5</title>
 
-        .welcome { font-weight: bold; font-size: 1.3rem; animation: goldFlash 3s infinite; margin-bottom: 20px; }
-        
-        .rainbow-text { 
-            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #ff00ff, #ff0000); 
-            background-size: 400% 400%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            animation: rainbowFlow 4s linear infinite; font-weight: bold; 
-        }
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-        .icon-pop { display: inline-block; animation: pop 2s infinite; margin: 0 5px; }
-        
-        .mission-box { 
-            background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 20px; 
-            border: 2px solid #FFD700; margin: 20px 0; animation: boxGlow 3s infinite;
-        }
+<style>
+:root {
+    --gold: #ffd700;
+    --dark: #0a0a0a;
+    --gray: #1a1a1a;
+}
+body {
+    background: var(--dark);
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
 
-        .status-box { 
-            margin-top: 30px; padding: 25px; border: 3px solid #FFD700; border-radius: 20px; 
-            animation: boxGlow 2s infinite; background: rgba(255, 215, 0, 0.1);
-        }
-        
-        .legacy { font-size: 3rem; display: block; margin-top: 10px; animation: pop 1.5s infinite; }
-    </style>
+/* =================== CDC HEADER =================== */
+.cdc-header {
+    background: #111;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+.cdc-header h3 { margin:0; color: var(--gold); }
+.cdc-header p { margin:5px 0; color:#ccc; }
+.cdc-header ul { list-style:none; padding-left:0; margin:5px 0; }
+
+/* =================== CDC MENU =================== */
+.cdc-menu a, .cdc-menu .dropbtn { 
+    text-decoration: none; 
+    color: var(--gold); 
+    font-weight: bold; 
+    display: block; 
+    margin: 5px 0; 
+    cursor: pointer; 
+}
+.cdc-menu { background: #111; padding: 10px; border-radius: 12px; }
+.dropdown { position: relative; display: inline-block; }
+.dropdown-content { display: none; position: absolute; background-color: #222; min-width: 200px; z-index: 1; border-radius: 10px; padding: 10px; }
+.dropdown-content a { padding: 5px; display: block; }
+.dropdown:hover .dropdown-content { display: block; }
+
+/* Wallet Slide-out Panel */
+#walletPanel {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100%;
+    background: #111;
+    padding: 20px;
+    border-left: 2px solid var(--gold);
+    transition: right 0.3s ease;
+    z-index: 9999;
+    overflow-y: auto;
+}
+#walletPanel.open { right: 0; }
+.wallet-box { background: #222; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+.wallet-title { font-size: 18px; color: gold; margin-bottom: 5px; }
+.wallet-toggle { position: fixed; top: 20px; right: 10px; background: var(--gold); color: black; border: none; padding: 10px; border-radius: 8px; cursor: pointer; z-index: 10000; }
+
+/* Swiper */
+.swiper { width: 100%; height: 300px; margin: 20px 0; }
+.swiper-slide { display: flex; flex-direction: column; padding: 10px; box-sizing: border-box; overflow-y: auto; }
+.header { text-align: center; border-bottom: 1px solid var(--gold); margin-bottom: 10px; padding-bottom: 5px; }
+.header h1 { color: var(--gold); font-size: 1.2rem; letter-spacing: 1px; }
+.card { background: var(--gray); border: 1px solid #333; border-radius: 12px; padding: 10px; margin-bottom: 10px; }
+.btn { background: var(--gold); color: black; border: none; padding: 10px; border-radius: 8px; font-weight: bold; width: 100%; margin-bottom: 5px; cursor: pointer; text-align: left; display: flex; justify-content: space-between; text-decoration: none; }
+
+/* Level Progress Grid */
+.level-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 10px; }
+.level-box { border: 1px solid #444; padding: 5px; font-size: 10px; border-radius: 4px; text-align: center; background: #000; color: #888; }
+.level-complete { border-color: var(--gold); color: var(--gold); font-weight: bold; }
+</style>
 </head>
+
 <body>
 
-    <h2>CDC COIN OF DESTINY & CHANGE</h2>
+<!-- ======================= CDC HEADER / GLOBAL INFO ======================= -->
+<div class="cdc-header">
+  <h2>CDC COIN OF DESTINY & CHANGE</h2>
+  <p>Empowering Communities • Creating Wealth • Watching • Spending Moments & Money</p>
 
-    <div class="welcome">
-        WELCOME to CDC COIN FAMILY where LIFE becomes Easy and HAYAHAY! 🌴💰
+  <h3>💎 Global Reserve: <b>0</b> | 🏦 Treasury: <b>0</b> | 🪙 CDC Price: <b>$1.02</b></h3>
+  <p>Founder: <b>Uday</b> | Succession: <b>Verified</b></p>
+
+  <!-- Account Overview -->
+  <div class="account-overview">
+    <b>Username:</b> default <br>
+    <b>Account Status:</b> default <br>
+    <b>Leadership / Level Status:</b> default <br>
+    <b>CDC Points:</b> <span id="cdcPointsHeader">0</span> <br>
+    <b>Total CDC Earned:</b> 0 <br>
+    <b>CDC Coin:</b> 0 <br>
+    <b>CDC Coin Locked:</b> 0 <br>
+    <b>Portal USDT:</b> 0
+  </div>
+
+  <!-- Wallets Overview -->
+  <div class="wallets-overview">
+    <b>💰 Wallets:</b>
+    <ul>
+      <li>CDC-Coin TREASURY</li>
+      <li>CDC-Coin RESERVE</li>
+      <li>CDC-Coin PORTAL</li>
+      <li>USDT</li>
+      <li>CDC-Coin Forfeited</li>
+      <li>CDC-Coin Merchant</li>
+      <li>CDC-Coin Backup</li>
+      <li>CDC-Coin Miscellaneous</li>
+      <li>CDC-Coin Locked</li>
+      <li>CDC-Coin Incentive</li>
+      <li>CDC-Coin Reward</li>
+      <li>CDC-Coin INFRA</li>
+      <li>CDC-Coin Foundation</li>
+      <li>CDC-Coin 204 Countries Charity</li>
+      <li>CDC-Coin Innovation</li>
+      <li>CDC-Coin Blockchain Fund</li>
+      <li>CDC-Coin System Maintenance</li>
+    </ul>
+  </div>
+
+  <!-- Language Selector -->
+  <div>
+    <b>🌐 Language:</b>
+    <select>
+      <option>English</option>
+      <option>Filipino</option>
+      <option>Chinese</option>
+      <option>Arabic</option>
+      <option>Spanish</option>
+      <option>French</option>
+      <option>German</option>
+      <option>Japanese</option>
+      <option>Hindi</option>
+      <option>Portuguese</option>
+      <option>Russian</option>
+    </select>
+  </div>
+
+  <!-- Country & Currency -->
+  <div style="margin-top:5px;">
+    <b>🌍 Country & Currency:</b>
+    <select>
+      <option>CDC-Coin</option>
+      <option>USDT</option>
+      <option>Philippines – PHP</option>
+      <option>United States – USD</option>
+      <option>United Kingdom – GBP</option>
+      <option>Japan – JPY</option>
+      <option>Germany – EUR</option>
+      <option>France – EUR</option>
+      <option>Nigeria – NGN</option>
+      <option>Brazil – BRL</option>
+    </select>
+  </div>
+
+  <!-- Live Blockchain Feed Placeholder -->
+  <div style="margin-top:10px; color:var(--gold);">
+    <b>● LIVE BLOCKCHAIN FEED:</b> Coming Soon…
+  </div>
+</div>
+
+<!-- ======================= CDC MENU ======================= -->
+<nav class="cdc-menu">
+  <a href="homepage.html">🏠 HOME</a>
+
+  <!-- BUSINESS DROPDOWN -->
+  <div class="dropdown">
+    <button class="dropbtn">💼 BUSINESS</button>
+    <div class="dropdown-content">
+      <a href="#">Registration</a>
+      <a href="#">Personal</a>
+      <a href="#">Merchant</a>
+      <a href="#">Association</a>
+      <a href="#">Cooperative</a>
+      <a href="#">Family Clan</a>
+      <a href="#">Corporation</a>
+      <a href="#">Government Agency</a>
+      <a href="#">Country</a>
+      <a href="#" onclick="toggleWallet()">➡ Open Wallet Panel</a>
+    </div>
+  </div>
+
+  <a href="#" onclick="toggleWallet()">💰 WALLET</a>
+  <span class="points">CDC Points: <b id="cdcPoints">0</b></span>
+
+  <a href="incentives.html">🏆 INCENTIVES</a>
+  <div class="dropdown">
+    <button class="dropbtn">🎁 Incentives</button>
+    <div class="dropdown-content">
+      <a href="house.html">🏠 House</a>
+      <a href="health.html">🏥 Health</a>
+      <a href="car.html">🚗 Car</a>
+      <a href="travel.html">✈️ Travel</a>
+      <a href="shopping.html">🛍️ Shopping</a>
+      <a href="scholar.html">🎓 Scholar</a>
+      <a href="agedcare.html">👵 AgedCare</a>
+      <a href="bonus.html">💰 Bonus</a>
+    </div>
+  </div>
+
+  <a href="rewards.html">🏆 REWARDS</a>
+  <div class="dropdown">
+    <button class="dropbtn">Rewards</button>
+    <div class="dropdown-content">
+      <a href="cycle1_rewards.html">Cycle 1 → Reward</a>
+      <a href="cycle2_rewards.html">Cycle 2 → Reward</a>
+    </div>
+  </div>
+
+  <a href="genealogy.html">🌳 GENEALOGY</a>
+  <a href="action_center.html">⚡ ACTION CENTER</a>
+  <a href="more.html">➕ MORE</a>
+</nav>
+
+<!-- ======================= WALLET PANEL ======================= -->
+<button class="wallet-toggle" onclick="toggleWallet()">🪙 My Wallet</button>
+<div id="walletPanel">
+  <h3>💰 CDC WALLET PANEL</h3>
+  <div class="wallet-box">
+    <div class="wallet-title">CDC-Coin Wallet Address</div>
+    <p id="walletCDC">0x0000...abcd</p>
+  </div>
+  <div class="wallet-box">
+    <div class="wallet-title">USDT Wallet Address</div>
+    <p id="walletUSDT">0x1111...efgh</p>
+  </div>
+  <div class="wallet-box">
+    <div class="wallet-title">Total CDC Earned</div>
+    <p id="totalCDC">0</p>
+  </div>
+  <div class="wallet-box">
+    <div class="wallet-title">CDC Coin Balance</div>
+    <p id="balanceCDC">0</p>
+  </div>
+  <div class="wallet-box">
+    <div class="wallet-title">CDC Coin Locked</div>
+    <p id="lockedCDC">0</p>
+  </div>
+  <div class="wallet-box">
+    <div class="wallet-title">Portal USDT Wallet</div>
+    <p id="portalUSDT">0</p>
+  </div>
+  <div class="wallet-box">
+    <div class="wallet-title">CDC-POINT</div>
+    <p id="cdcPoint">0</p>
+  </div>
+</div>
+
+<!-- ======================= DASHBOARD / MASTER HUB ======================= -->
+<div class="swiper">
+  <div class="swiper-wrapper">
+
+    <!-- Master Hub -->
+    <div class="swiper-slide">
+      <div class="header"><h1>CDC MASTER HUB</h1></div>
+      <div class="card">
+        <button class="btn" onclick="location.href='business_test.html'">💼 BUSINESS ENGINE</button>
+        <button class="btn" onclick="location.href='portal.html'">🌳 BINARY MONITOR (L28)</button>
+      </div>
     </div>
 
-    <div class="mission-box">
-        <span class="rainbow-text">EMPOWERING COMMUNITIES</span> <span class="icon-pop">🤝</span><br>
-        <span class="rainbow-text">CREATING WEALTH</span> <span class="icon-pop">💎</span><br>
-        WHILE <span class="rainbow-text">WATCHING</span> <span class="icon-pop">📺</span> and <br>
-        <span class="rainbow-text">SPENDING MONEY</span> <span class="icon-pop">💸</span>
-        <hr style="border: 0.5px solid #334155; margin: 15px 0;">
-        TRAVEL <span class="icon-pop">✈️</span> • HOUSE <span class="icon-pop">🏠</span> • CAR <span class="icon-pop">🏎️</span> • MEDICAL <span class="icon-pop">🏥</span><br>
-        EDUCATION <span class="icon-pop">📚</span> • ELDERLY CARE <span class="icon-pop">👵</span> • LIVELIHOOD <span class="icon-pop">🌱</span>
-        <div style="margin-top: 20px;">
-            <span class="rainbow-text" style="font-size: 2rem;">LEGACY</span>
-            <span class="legacy">👑</span>
-        </div>
+    <!-- Leadership / Level Status -->
+    <div class="swiper-slide">
+      <div class="header"><h1>LEADERSHIP LEVEL STATUS</h1></div>
+      <div class="card">
+        <div class="level-grid" id="levelGrid"></div>
+      </div>
     </div>
 
-    <div class="status-box">
-        <div style="font-size: 2.2rem; font-weight: bold; color: #FFD700; animation: goldFlash 2s infinite;">🚧 Phase 1: Portal Deployment</div>
-        <div style="font-size: 1.5rem; color: #ffffff; margin-top: 15px; font-weight: bold;">
-            The 204-Country Charity List and <br>
-            Wallet Tracking are being integrated. <br>
-            <span class="rainbow-text">Check back soon!</span>
-        </div>
-    </div>
+  </div>
+</div>
+
+<p>CDC Coin of Destiny & Change © 2026</p>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+// Initialize Swiper
+const swiper = new Swiper('.swiper', { direction: 'horizontal' });
+
+// Toggle wallet panel
+function toggleWallet() {
+  document.getElementById('walletPanel').classList.toggle('open');
+}
+
+// Auto-update wallet values (placeholder logic)
+function updateWallet() {
+  document.getElementById('walletCDC').textContent = '0xABC123...';
+  document.getElementById('walletUSDT').textContent = '0xUSDT456...';
+  document.getElementById('totalCDC').textContent = Math.floor(Math.random()*10000);
+  document.getElementById('balanceCDC').textContent = Math.floor(Math.random()*5000);
+  document.getElementById('lockedCDC').textContent = Math.floor(Math.random()*1000);
+  document.getElementById('portalUSDT').textContent = Math.floor(Math.random()*2000);
+  const points = Math.floor(Math.random()*500);
+  document.getElementById('cdcPoint').textContent = points;
+  document.getElementById('cdcPoints').textContent = points;
+  document.getElementById('cdcPointsHeader').textContent = points;
+}
+// Update wallet every 2 seconds
+setInterval(updateWallet, 2000);
+
+// Level 1–20 progress visual tracker
+const levelGrid = document.getElementById('levelGrid');
+for(let i=1; i<=20; i++){
+  const div = document.createElement('div');
+  div.className = 'level-box';
+  div.textContent = 'L'+i;
+  if(i===20) div.classList.add('level-complete'); // Perfect 20th
+  levelGrid.appendChild(div);
+}
+</script>
 
 </body>
 </html>
