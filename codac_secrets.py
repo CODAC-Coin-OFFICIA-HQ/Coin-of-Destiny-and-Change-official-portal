@@ -1,0 +1,5 @@
+DB_PASSWORD = "dnHmzMkSQhvMmCj8"
+
+# === SYSTEM CONFIGURATION ===
+OFFICIAL_DOMAIN = "https://codac-coin.com"
+PORTAL_NAME = "CODAC COIN OF DESTINY & CHANGE"
